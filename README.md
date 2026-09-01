@@ -7,8 +7,8 @@ The project focuses on a practical product-analytics workflow: **data quality �
 ## Executive summary
 
 - **903,653 sessions** and **714,167 users** analyzed across Aug 2016–Aug 2017.
-- Overall **session → purchase conversion: 1.28%**.
-- Largest internal funnel loss: **Product view → Add to cart**, ~**59.6% drop-off**.
+- Overall **observed session → purchase conversion: 1.28%**; **1.00%** of sessions complete the full strict sequence `view → cart → checkout → purchase`.
+- Largest internal **strict sequential** funnel loss: **Product view → Add to cart**, **64.53% drop-off**.
 - Desktop purchase conversion: **1.58%** vs **0.41%** on mobile.
 - The desktop–mobile gap persists among both **new and returning** users.
 - **Referral** converts at **5.08%** and generates ~**46% of purchases** from only **11.6% of sessions**.
@@ -61,7 +61,7 @@ SQL: [`sql/00_data_quality.sql`](sql/00_data_quality.sql)
 
 ## 2. E-commerce funnel
 
-The session-level funnel uses direct ecommerce events from `hits.eCommerceAction.action_type`:
+The main funnel is **strictly sequential**: each stage must occur after the previous stage according to `hits.hitNumber`.
 
 ```text
 All sessions → Product view → Add to cart → Checkout → Purchase
@@ -71,17 +71,27 @@ All sessions → Product view → Add to cart → Checkout → Purchase
 |---|---:|---:|
 | All sessions | 903,653 | — |
 | Product view | 124,188 | 13.74% |
-| Add to cart | 50,139 | 40.37% |
-| Checkout | 22,407 | 44.69% |
-| Purchase | 11,552 | 51.56% |
+| Add to cart after view | 44,044 | 35.47% |
+| Checkout after cart | 17,088 | 38.80% |
+| Purchase after checkout | 9,072 | 53.09% |
 
-The largest internal drop-off is **Product view → Add to cart: ~59.6%**.
+The largest internal drop-off is **Product view → Add to cart: 64.53%**.
 
-![Funnel](images/funnel.png)
+![Strict funnel](images/funnel_sequential.png)
+
+### Metric definition note
+
+There are **11,552 sessions with any observed purchase event**, so the overall observed purchase conversion is **1.28%**.
+
+The strict sequential funnel contains **9,072** sessions with the complete observed path `view → cart → checkout → purchase`, equal to **1.00%** of all sessions.
+
+These are intentionally different metrics: the first is a business outcome KPI, while the second applies a strict analytical path definition.
 
 ## 3. Device segmentation
 
-| Device | Sessions | Purchases | Session → Purchase |
+The following table uses the **observed purchase-event business KPI**, not strict full-path completion.
+
+| Device | Sessions | Purchases | Observed Session → Purchase |
 |---|---:|---:|---:|
 | Desktop | 664,479 | 10,528 | **1.58%** |
 | Mobile | 208,725 | 856 | **0.41%** |
@@ -89,7 +99,7 @@ The largest internal drop-off is **Product view → Add to cart: ~59.6%**.
 
 Desktop conversion is about **3.86×** mobile conversion.
 
-![Device conversion](images/device_conversion.png)
+![Observed device conversion](images/device_observed_purchase_conversion.png)
 
 This gap appears at several lower-funnel steps, so the result is not driven only by the final purchase event.
 
@@ -158,23 +168,21 @@ This is **not an A/B test**. Users were not randomly assigned to device groups, 
 
 ## 8. Experiment design
 
-The strongest actionable candidate is the mobile **Product view → Add to cart** step:
+The strict mobile funnel shows **27.73%** session-level Product view → Add to cart conversion versus **37.82%** on desktop.
 
-- mobile baseline: **32.46%**
-- desktop comparison: **42.76%**
+For experiment planning, the analysis is aligned with **user-level randomization**:
 
-Proposed test: a mobile product-page treatment that makes Add to cart more prominent and reduces interaction friction.
-
-MVP design:
-
-- primary metric: Product view → Add to cart conversion
-- MDE: **+5 p.p.** (32.46% → 37.46%)
+- randomization unit: `fullVisitorId`
+- primary metric: whether a user's **first eligible mobile product-view session** contains Add to cart after Product view
+- eligible historical users: **23,102**
+- converted users: **6,068**
+- user-level baseline: **26.27%**
+- illustrative MDE: **+5.0 p.p.** → target **31.27%**
 - α = 0.05
 - power = 80%
-- 50/50 split
-- nominal sample: **1,427 per group**
-- with 10% buffer: **1,570 per group / 3,140 total**
-- historical traffic implies roughly **45 days** at the sample's average eligible volume
+- nominal sample: **1,285 users per group**
+- with 10% buffer: **1,414 per group / 2,828 total**
+- historical volume suggests roughly **45 days**
 
 Full design: [`docs/experiment_design.md`](docs/experiment_design.md)
 
@@ -200,10 +208,11 @@ These are **hypotheses for validation**, not causal conclusions.
 ├── sql/
 │   ├── 00_data_quality.sql
 │   ├── 01_data_profiling.sql
-│   ├── 02_funnel_by_device.sql
+│   ├── 02_sequential_funnel_by_device.sql
 │   ├── 03_monthly_retention.sql
 │   ├── 04_new_vs_returning_by_device.sql
-│   └── 05_channel_performance.sql
+│   ├── 05_channel_performance.sql
+│   └── 06_experiment_user_level_baseline.sql
 ├── .gitignore
 ├── requirements.txt
 └── README.md

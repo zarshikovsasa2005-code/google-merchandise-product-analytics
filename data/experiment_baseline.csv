@@ -1,0 +1,2 @@
+eligible_users,converted_users,baseline_user_conversion_pct,mde_pp,target_user_conversion_pct,alpha,power,sample_per_group,sample_per_group_with_10pct_buffer,total_with_buffer,historical_avg_eligible_users_per_day,rough_duration_days
+23102,6068,26.27,5.0,31.27,0.05,0.8,1285,1414,2828,63.3,45
