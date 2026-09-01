@@ -37,6 +37,12 @@ BigQuery public dataset:
 bigquery-public-data.google_analytics_sample.ga_sessions_*
 ```
 
+**Official Google sources:**
+- [Google Cloud — Google Analytics (Sample) dataset overview](https://cloud.google.com/datasets)
+- [Google Cloud Marketplace — Google Analytics 360 sample dataset](https://console.cloud.google.com/marketplace/product/obfuscated-ga360-data/obfuscated-ga360-data)
+
+Google describes this public sample as **12 months of obfuscated Google Analytics 360 data from the Google Merchandise Store**, including traffic-source, content, and transactional data.
+
 Observed period: **2016-08-01 — 2017-08-01**
 
 | Metric | Value |
