@@ -1,0 +1,9 @@
+channel,sessions,purchases,traffic_share_pct,purchase_conversion_pct,purchase_share_pct
+Organic Search,381561,3443,42.22,0.9,29.8
+Social,226117,104,25.02,0.05,0.9
+Direct,143026,2061,15.83,1.44,17.84
+Referral,104838,5322,11.6,5.08,46.07
+Paid Search,25326,469,2.8,1.85,4.06
+Affiliates,16403,9,1.82,0.05,0.08
+Display,6262,143,0.69,2.28,1.24
+(Other),120,1,0.01,0.83,0.01

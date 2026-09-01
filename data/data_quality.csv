@@ -1,0 +1,2 @@
+rows_total,unique_session_keys,duplicate_rows,repeated_visitor_visit_keys,extra_rows_under_visitor_visit_key,repeated_keys_with_different_start_time,repeated_keys_with_different_date
+903653,903653,0,898,898,898,898

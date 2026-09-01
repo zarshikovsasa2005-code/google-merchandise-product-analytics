@@ -1,0 +1,7 @@
+user_type,device_category,sessions,purchases,purchase_conversion_pct
+new,desktop,513438,3902,0.76
+new,mobile,165461,478,0.29
+new,tablet,24161,95,0.39
+returning,desktop,151041,6626,4.39
+returning,mobile,43264,378,0.87
+returning,tablet,6288,73,1.16
