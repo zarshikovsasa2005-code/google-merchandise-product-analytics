@@ -1,0 +1,6 @@
+step,stage,sessions,conversion_from_start_pct,conversion_from_previous_pct,dropoff_from_previous_pct
+1,All sessions,903653,100.0,,
+2,Product view,124188,13.74,13.74,86.26
+3,Add to cart,50139,5.55,40.37,59.63
+4,Checkout,22407,2.48,44.69,55.31
+5,Purchase,11552,1.28,51.56,48.44
