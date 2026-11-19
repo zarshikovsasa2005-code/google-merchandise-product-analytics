@@ -24,6 +24,7 @@
 **Результаты:** 903 653 сессии, 714 167 пользователей, 11 552 сессии с покупкой, Purchase CR 1,28%; крупнейший отвал строгой воронки — 64,53% между просмотром товара и корзиной.
 
 - [Описание дашборда, архитектура, фильтры и ограничения](docs/superset_dashboard.md)
+- [Экспорт Superset: 11 графиков и дашборд (без ключей доступа)](dashboard/superset_export_no_secrets.zip)
 - [SQL-витрина сессий](sql/07_superset_sessions.sql)
 - [SQL-витрина воронки](sql/08_superset_funnel.sql)
 - [SQL-витрина retention](sql/09_superset_retention.sql)

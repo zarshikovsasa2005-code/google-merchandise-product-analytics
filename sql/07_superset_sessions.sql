@@ -1,6 +1,6 @@
 -- Session-level semantic layer for Apache Superset.
 -- Observed purchase CR = sessions with a transaction / all sessions.
-CREATE OR REPLACE VIEW `product-analytics-pet.product_analytics.dashboard_sessions` AS
+CREATE OR REPLACE TABLE `product-analytics-pet.product_analytics.dashboard_sessions` AS
 SELECT
   PARSE_DATE('%Y%m%d', date) AS session_date,
   fullVisitorId AS user_id,
